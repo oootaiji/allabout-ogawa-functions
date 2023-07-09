@@ -83,6 +83,10 @@ https://github.com/oootaiji/allabout-ogawa-functions/blob/main/CloudFunctionsを
         - Cloud Functions (とりあえず管理者でOK)
         - Artifact Registry (とりあえず管理者でOK)
         - ストレージ (とりあえず管理者でOK)
+- Workload Identityを有効にする
+    - APIを有効化
+    - Workload Identityを作成
+    - Service Accountに紐付ける
 
 ### 2. Github Actionsのyamlを作成
 - .github/workflows/workflow.yml作成
@@ -92,8 +96,10 @@ https://github.com/oootaiji/allabout-ogawa-functions/blob/main/CloudFunctionsを
 
 
 ### 3. デプロイ
-1. mainへpush
-2. デプロイ確認
+1. 手動デプロイは済ませておく
+    1. 「未承認呼び出しを許可」は後で設定を変えられないので注意
+2. mainへpush
+3. デプロイ確認
     1. Actionsのworkflowが動く
     2. Actionsのworkflowが正常終了
     3. ブラウザにてアプリ稼働確認
@@ -105,3 +111,5 @@ https://github.com/oootaiji/allabout-ogawa-functions/blob/main/CloudFunctionsを
 - [環境変数の取得](https://cloud.google.com/functions/docs/samples/functions-env-vars?hl=ja)
 - [gcloud deployコマンド](https://cloud.google.com/sdk/gcloud/reference/functions/deploy)
 - [cloud functionsデプロイ方法まとめ](https://zenn.dev/akineko/articles/ed7e1c9437cc2c)
+- [GitHub Action Cloud Functions Deploy](https://github.com/marketplace/actions/cloud-functions-deploy)
+- [github actionsでoidcを利用してgcpの認証](https://zenn.dev/kou_pg_0131/articles/gh-actions-oidc-gcp)

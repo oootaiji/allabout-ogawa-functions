@@ -1,0 +1,37 @@
+name: production
+
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  deploy-production:
+    runs-on: ubuntu-20.04
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v3
+      - id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          workload_identity_provider: projects/246684855382/locations/global/workloadIdentityPools/allabout-oidc/providers/github-actions
+          service_account: 'allabout@o-taiji.iam.gserviceaccount.com'
+      - id: deploy
+        uses: google-github-actions/deploy-cloud-functions@v1
+        # @see https://github.com/marketplace/actions/cloud-functions-deploy#allowing-unauthenticated-requests
+        with:
+          name: allabout-ogawa-functions
+          runtime: php82
+          entry_point: send
+          region: us-west1
+          env_vars: ${{ secrets.ENV_VARS }}
+          memory_mb: 256
+          max_instances: 5
+
+
